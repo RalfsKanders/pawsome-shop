@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pawsome Shop - Dog Toys Store</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Pawsome<span>Shop</span></div>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#products">Shop</a>
+      <button id="cart-btn" class="cart-button">
+        Cart (<span id="cart-count">0</span>)
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero-text">
+        <h1>Fun Toys for Happy Dogs</h1>
+        <p>High-quality, vet-approved toys that keep your dog active, smart and happy.</p>
+        <a href="#products" class="btn-primary">Shop Now</a>
+      </div>
+      <div class="hero-image">
+        🐶🦴
+      </div>
+    </section>
+
+    <section id="products" class="products-section">
+      <h2>Our Bestsellers</h2>
+      <div id="product-list" class="product-list">
+      </div>
+    </section>
+  </main>
+
+  <div id="cart-modal" class="cart-modal hidden">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button id="close-cart" class="close-btn">&times;</button>
+      </div>
+      <div id="cart-items" class="cart-items">
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          Total: €<span id="cart-total">0.00</span>
+        </div>
+        <button id="checkout-btn" class="btn-primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart-backdrop" class="cart-backdrop hidden"></div>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> Pawsome Shop. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
