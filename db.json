@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": "admin1",
+      "email": "admin@shop.local",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": "b1c5539f-1cbe-4633-9e0e-78a863cc52ff",
+      "email": "ralfs.kanders@gmail.com",
+      "password": "Test2003",
+      "role": "customer"
+    }
+  ],
+  "orders": [
+    {
+      "id": "699e7621-ffe9-45ca-8a2b-520ed54100fa",
+      "userId": "b1c5539f-1cbe-4633-9e0e-78a863cc52ff",
+      "email": "ralfs.kanders@gmail.com",
+      "items": [
+        {
+          "id": "p2",
+          "name": "Rope Tug Toy",
+          "price": 9.5,
+          "qty": 1
+        },
+        {
+          "id": "p3",
+          "name": "Puzzle Treat Ball",
+          "price": 14.25,
+          "qty": 1
+        }
+      ],
+      "total": 23.75,
+      "status": "pending",
+      "createdAt": "2025-12-04T15:06:30.039Z"
+    },
+    {
+      "id": "fcda47a9-a261-43d4-8844-dc10c0ee0197",
+      "userId": "b1c5539f-1cbe-4633-9e0e-78a863cc52ff",
+      "email": "ralfs.kanders@gmail.com",
+      "items": [
+        {
+          "id": "p4",
+          "name": "Plush Duck Toy",
+          "price": 8.75,
+          "qty": 1
+        }
+      ],
+      "total": 8.75,
+      "status": "pending",
+      "createdAt": "2025-12-04T15:06:36.199Z"
+    }
+  ]
+}
