@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://pawsome-shop-backend.onrender.com/api";
 
 let cart = [];
 let currentUser = null;
