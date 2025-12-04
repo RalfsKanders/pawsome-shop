@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login – Pawsome Shop</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-container {
+      max-width: 400px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .page-container input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.3rem 0 0.8rem;
+      border-radius: 0.4rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    h1,h3 { text-align:center; }
+  </style>
+</head>
+
+<body>
+  <div class="page-container">
+    <h1>Login or Register</h1>
+
+    <h3>Login</h3>
+    <input id="login-email" type="email" placeholder="Email" />
+    <input id="login-password" type="password" placeholder="Password" />
+    <button class="btn-primary" id="login-btn" type="button">Login</button>
+
+    <hr />
+
+    <h3>Register</h3>
+    <input id="reg-email" type="email" placeholder="Email" />
+    <input id="reg-password" type="password" placeholder="Password" />
+    <button class="btn-primary" id="reg-btn" type="button">Register</button>
+
+    <p>Admin login: <b>admin@shop.local</b> / <b>admin123</b></p>
+
+    <p style="text-align:center;">
+      <a href="index.html">← Back to shop</a>
+    </p>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:3000/api";
+
+    function saveAuth(user, token) {
+      localStorage.setItem("ps_user", JSON.stringify(user));
+      localStorage.setItem("ps_token", token);
+    }
+
+    async function login(email, password) {
+      const res = await fetch(API_URL + "/auth/login", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ email, password })
+      });
+
+      if (!res.ok) throw new Error("Login failed");
+
+      return res.json();
+    }
+
+    async function register(email, password) {
+      const res = await fetch(API_URL + "/auth/register", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ email, password })
+      });
+
+      if (!res.ok) throw new Error("Register failed");
+
+      return res.json();
+    }
+
+    document.getElementById("login-btn").onclick = async () => {
+      const email = document.getElementById("login-email").value.trim();
+      const pass = document.getElementById("login-password").value.trim();
+
+      if (!email || !pass) return alert("Enter email & password");
+
+      try {
+        const data = await login(email, pass);
+        saveAuth(data.user, data.token);
+        alert("Logged in!");
+        window.location.href = "index.html";
+      } catch {
+        alert("Login failed.");
+      }
+    };
+
+    document.getElementById("reg-btn").onclick = async () => {
+      const email = document.getElementById("reg-email").value.trim();
+      const pass = document.getElementById("reg-password").value.trim();
+
+      if (!email || !pass) return alert("Enter email & password");
+
+      try {
+        const data = await register(email, pass);
+        saveAuth(data.user, data.token);
+        alert("Registered!");
+        window.location.href = "index.html";
+      } catch {
+        alert("Registration failed.");
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Orders – Pawsome Shop</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .page-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-container">
+    <h1>My Orders</h1>
+
+    <div id="orders-box">Loading…</div>
+
+    <p style="text-align:center; margin-top:1rem;">
+      <a href="index.html">← Back to shop</a>
+    </p>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:3000/api";
+
+    function getAuth() {
+      const u = localStorage.getItem("ps_user");
+      const t = localStorage.getItem("ps_token");
+      if (!u || !t) return null;
+      return { user: JSON.parse(u), token: t };
+    }
+
+    async function loadOrders() {
+      const auth = getAuth();
+      const box = document.getElementById("orders-box");
+
+      if (!auth) {
+        box.innerHTML = `<p>You are not logged in. <a href="login.html">Login</a></p>`;
+        return;
+      }
+
+      const res = await fetch(API_URL + "/orders/my", {
+        headers: { Authorization: "Bearer " + auth.token }
+      });
+
+      if (!res.ok) {
+        box.textContent = "Could not load orders.";
+        return;
+      }
+
+      const orders = await res.json();
+
+      if (orders.length === 0) {
+        box.innerHTML = "<p>You have no orders yet.</p>";
+        return;
+      }
+
+      let html = `
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+      `;
+
+      orders.forEach(o => {
+        html += `
+          <tr>
+            <td>${o.id}</td>
+            <td>€${o.total.toFixed(2)}</td>
+            <td>${o.status}</td>
+            <td>${new Date(o.createdAt).toLocaleString()}</td>
+          </tr>
+        `;
+      });
+
+      html += "</table>";
+
+      box.innerHTML = html;
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>
